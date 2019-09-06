@@ -1,13 +1,18 @@
 import uiautomator2 as u2
-
-import os
 import time
-
-# os.system('adb connect 127.0.0.1:7555')
-d = u2.connect()  # connect to device
-print(d.info)
+import os
+os.system('adb connect 127.0.0.1:7555')
+d = u2.connect() 
 
 while True:
-    d.click(0.5*576, 0.88*1024)
-    print("ok")
-    time.sleep(60)
+    d.click(926, 1760)
+    print("click1")
+    time.sleep(2)
+
+    d.click(926, 1314)
+    print("click2")
+    time.sleep(13)
+
+    d.press("back")
+    print("back")
+    time.sleep(2)
