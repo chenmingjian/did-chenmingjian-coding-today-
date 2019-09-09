@@ -5,13 +5,6 @@ output = json.load(open("../output_.json"))
 foot = json.load(open("../person_keypoints_train2017_foot_v1.json"))
 
 # %%
-ab = []
-for i in coco["annotations"]:
-    if (len(i["keypoints"]) != 17*3):
-        ab.append(i['id'])
-print(len(ab), ab)
-
-# %%
 image_dict = {}
 for name, dataset in zip(["coco", "output", "foot"], [coco, output, foot]):
     l = {}
@@ -25,11 +18,6 @@ print(image_dict.keys())
 for name in ["coco", "output", "foot"]:
     print(name, "have", len(image_dict[name]), "annotationed images.")
 
-# %%
-# for i in coco["annotations"]:
-#     if i["id"] == 554622:
-#         print(len(i["id"]["keypoints"]))
-#         break
 
 # %%
 new_categories = coco["categories"]
@@ -42,9 +30,6 @@ new_licenses = coco["licenses"]
 
 # %%
 new_images = [i for i in foot["images"] if i["id"] in image_dict['foot']]
-
-# %%
-print(len(new_images))
 
 # %%
 for i in range(len(new_images)):
@@ -76,9 +61,7 @@ print(len(ab), ab)
 print(len(foot["annotations"][0]["keypoints"]))
 print(len(annotations_dict["coco"][183062]["keypoints"]))
 
-# %%
-for i in coco["annotations"]:
-    assert (len(i["keypoints"]) != 17*3)
+
 # %%
 # coco左右耳--3,4
 # output 左右鞋尖--0,2; 左右脚跟1,3; 头顶脖子左右手端 19,20,21,22
@@ -99,7 +82,7 @@ for i, anno in enumerate(foot["annotations"]):
     else:
         new_annotations[i]["keypoints"] = annotations_dict["coco"][anno["id"]]["keypoints"]
 
-    # assert  (len(annotations_dict["coco"][anno["id"]]["keypoints"]) != 17*3)
+    assert  (len(annotations_dict["coco"][anno["id"]]["keypoints"]) == 17*3)
 
     if anno["id"] in annotations_dict["output"]:
         tail_17_24 = \
@@ -123,6 +106,7 @@ for i, anno in enumerate(foot["annotations"]):
             [0, 0, 0] + \
             [0, 0, 0] + \
             [0, 0, 0]
+        print(anno["id"])
         print(len(annotations_dict["foot"][anno["id"]]["keypoints"][19*3 : 19*3+3]))
         print(len(annotations_dict["foot"][anno["id"]]["keypoints"][17*3 : 17*3+3]))
         print(len(annotations_dict["foot"][anno["id"]]["keypoints"][22*3 : 22*3+3]))

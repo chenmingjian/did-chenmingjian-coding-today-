@@ -22,9 +22,10 @@ ax.plot_surface(X, Y, H(X, Y), rstride=1, cstride=1, cmap='rainbow')
  
 plt.draw()
 plt.pause(10)
-plt.savefig('3D.jpg')
-plt.close()
 
+
+
+#%%
 
 
 #%%
