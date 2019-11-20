@@ -16,33 +16,27 @@ import sys
  
 sys.setrecursionlimit(1000000) #例如这里设置为一百
 class Solution:
+    def __init__(self):
+        self.ans = None
+        
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        ap = []
-        aq = []
+        
+        def recurse_tree(current_node):
+            if not current_node:
+                return False
 
-        def ok(node, path=[]):
-            if node is None or (aq != [] and ap != []):
-                return
-            path = path.copy()
-            path.append(node)
-            if node == p:
-                ap.extend(path)
-                print(ap)
-            if node == q:
-                aq.extend(path)
-                print(aq)
-            ok(node.left, path)
-            ok(node.right, path)
+            left = recurse_tree(current_node.left)
+            right = recurse_tree(current_node.right)
 
-        ok(root)
-        ans = root
-        print(len(ap), len(aq))
-        for i, j in zip(ap, aq):
-            if i == j:
-                ans = i
+            mid = current_node == p or current_node == q
 
-        return ans
+            if mid + left + right >= 2:
+                self.ans = current_node
 
+            return mid or left or right
+
+        recurse_tree(root)
+        return self.ans
 
 # @lc code=end
 
