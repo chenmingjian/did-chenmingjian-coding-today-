@@ -33,11 +33,16 @@
 # @lc code=start
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        
-        def ok(l, profit=0):
-            if len(l) == 0:
-                return profit
+        sold = 0
+        rest = 0
+        hold = -float('inf')
 
-            return max(l)
+        for p in prices:
+            pre_sold = sold
+            sold = hold + p
+            hold = max(hold, rest - p)
+            rest = max(rest, pre_sold)
+        
+        return max(sold, rest)
 # @lc code=end
 
