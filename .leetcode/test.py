@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from typing import *
 import numpy as np
 import time
@@ -30,3 +31,16 @@ start = time.time()
 tmp = Solution().maxSideLength([[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], 4)
 print(tmp)
 print(time.time()-start)
+=======
+import numpy as np 
+import time
+
+begin = time.time()
+a = [i for i in range(300000, 0, -1)]
+
+print(a[:10])
+a = np.sort(a)
+print(a[:10])
+
+print(time.time() - begin)
+>>>>>>> b7bc2f5f156266254c9197f95e914427a463e409
