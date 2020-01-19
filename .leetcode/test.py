@@ -1,42 +1,32 @@
 from typing import *
-import collections
-
+import numpy as np
+import time
 class Solution:
-    def findSmallestRegion(self, regions: List[List[str]], region1: str, region2: str) -> str:
-        d = {}
-        d2 = {}
-        for i in regions:
-            # print(i)
-            d[i[0]] = {j:{} for j in i[1:]}
-        del_index = []
-        
-        for i in d:
-            for j in d:
-                if i in d[j]:
-                    d[j][i] = d[i]
-                    
-                    del_index.append(i)
-        for i in del_index:
-            d.pop(i)
-        
-        
-        deque = collections.deque([(i, d[i], None) for i in d])
-      
-        while deque:
-            k, a, father = deque.popleft()
-            
-            if father is None:
-                d2[k] = [k]
-            else:
-                d2[k] = d2[father] + [k]
-            if region1 in d2 and region2 in d2:
-                break    
-            for i in a:
-                deque.append((i,a[i], k))
+    def maxSideLength(self, mat: List[List[int]], threshold: int) -> int:
+        mat = np.array(mat)
+        m, n = mat.shape
+        print(mat)
+        max_ = 0
+        for i in range(m):
+            if i+max_ > m:
+                continue
+            for j in range(n):
+                if j+max_ > n:
+                    continue
+                sub_mat = mat[i:i+max_, j:j+max_]
+                sum_ = np.sum(sub_mat)
+                while sum_ <= threshold:
+                    print(sub_mat, i, i+max_, j, j+max_)
+                    max_ += 1
+                    sub_mat = mat[i:i+max_, j:j+max_]
+                    sum_ = np.sum(sub_mat)
+                    if j+max_ > n or i+max_ > m:
+                        break
+        return max_ - 1 
 
-        ans = ''
-        for i, j in zip(d2[region1], d2[region2]):
-            if i == j:
-                ans = i
-            else:
-                break
+
+start = time.time()
+# tmp = Solution().maxSideLength([[28,39,98,91,7,99],[79,3,17,83,9,92],[81,73,42,27,67,70],[88,30,73,99,96,89],[27,59,0,1,65,79],[42,55,48,29,86,96]], 24829)
+tmp = Solution().maxSideLength([[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], 4)
+print(tmp)
+print(time.time()-start)
