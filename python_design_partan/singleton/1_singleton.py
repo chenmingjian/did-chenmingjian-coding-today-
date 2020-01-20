@@ -11,3 +11,5 @@ print("Object created", s)
 s1 = Singleton()
 print("Object created", s1)
 
+l1 = list.__new__(list, 10)
+print(l1)
