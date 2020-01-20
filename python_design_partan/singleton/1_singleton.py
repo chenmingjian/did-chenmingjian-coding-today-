@@ -11,8 +11,10 @@ class SingletonList(list):
         print(self)
 
 
-
+print(f'{hasattr(SingletonList, "instance")=}')
 sl1 = SingletonList()
+print(f'{hasattr(SingletonList, "instance")=}')
+
 
 print(f'{sl1=} {id(sl1)=}')
 print(SingletonList.__mro__)
