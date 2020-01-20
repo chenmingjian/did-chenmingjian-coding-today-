@@ -1,15 +1,26 @@
-class Singleton(object):
+class SingletonList(list):
     def __new__(cls):
-        if not hasattr(cls,'instance'):
-            cls.instance = super(Singleton, cls).__new__(cls)
-
+        print(cls)
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(SingletonList, cls).__new__(cls)
         return cls.instance
 
-s = Singleton()
-print("Object created", s)
+    def __init__(self):
+        print(id(self))
+        self += [1, 2, 3, 4]
+        print(self)
 
-s1 = Singleton()
-print("Object created", s1)
 
-l1 = list.__new__(list, 10)
-print(l1)
+
+sl1 = SingletonList()
+
+print(f'{sl1=} {id(sl1)=}')
+print(SingletonList.__mro__)
+print()
+
+sl2 = SingletonList()
+print(f'{sl2=} {id(sl2)=}')
+print()
+
+print(f'{id(SingletonList.__new__(SingletonList))=}')
+print()
