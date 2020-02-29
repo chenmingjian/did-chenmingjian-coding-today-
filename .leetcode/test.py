@@ -1,46 +1,33 @@
-<<<<<<< HEAD
 from typing import *
-import numpy as np
-import time
 class Solution:
-    def maxSideLength(self, mat: List[List[int]], threshold: int) -> int:
-        mat = np.array(mat)
-        m, n = mat.shape
-        print(mat)
-        max_ = 0
-        for i in range(m):
-            if i+max_ > m:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        
+        n=len(nums)
+        res=[]
+        if(not nums or n<3):
+            return []
+        nums.sort()
+        res=[]
+        for i in range(n):
+            if(nums[i]>0):
+                return res
+            if(i>0 and nums[i]==nums[i-1]):
                 continue
-            for j in range(n):
-                if j+max_ > n:
-                    continue
-                sub_mat = mat[i:i+max_, j:j+max_]
-                sum_ = np.sum(sub_mat)
-                while sum_ <= threshold:
-                    print(sub_mat, i, i+max_, j, j+max_)
-                    max_ += 1
-                    sub_mat = mat[i:i+max_, j:j+max_]
-                    sum_ = np.sum(sub_mat)
-                    if j+max_ > n or i+max_ > m:
-                        break
-        return max_ - 1 
+            L=i+1
+            R=n-1
+            while(L<R):
+                if(nums[i]+nums[L]+nums[R]==0):
+                    res.append([nums[i],nums[L],nums[R]])
+                    while(L<R and nums[L]==nums[L+1]):
+                        L=L+1
+                    while(L<R and nums[R]==nums[R-1]):
+                        R=R-1
+                    L=L+1
+                    R=R-1
+                elif(nums[i]+nums[L]+nums[R]>0):
+                    R=R-1
+                else:
+                    L=L+1
+        return res
 
-
-start = time.time()
-# tmp = Solution().maxSideLength([[28,39,98,91,7,99],[79,3,17,83,9,92],[81,73,42,27,67,70],[88,30,73,99,96,89],[27,59,0,1,65,79],[42,55,48,29,86,96]], 24829)
-tmp = Solution().maxSideLength([[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], 4)
-print(tmp)
-print(time.time()-start)
-=======
-import numpy as np 
-import time
-
-begin = time.time()
-a = [i for i in range(300000, 0, -1)]
-
-print(a[:10])
-a = np.sort(a)
-print(a[:10])
-
-print(time.time() - begin)
->>>>>>> b7bc2f5f156266254c9197f95e914427a463e409
+print(Solution().threeSum([-1, 2, 2, 2, 2]))
